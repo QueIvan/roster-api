@@ -25,7 +25,7 @@ public class LogService {
     public List<LogDto> getAllLogs(String issuerId){
         List<Log> fetched = repository.findAll();
         info(LogDto.builder()
-                .content(String.format("Fetching all logs [issuerId: %s]", issuerId))
+                .content("Fetching all logs")
                 .issuerId(issuerId)
                 .build());
         return mapper.mapLogListToLogDtoList(fetched);
@@ -37,7 +37,6 @@ public class LogService {
 
     public void createLog(@NotNull LogDto dto){
         dto.setDate(LocalDateTime.now());
-        dto.setContent(dto.getContent().replaceAll("\\s\\[issuerId: .*]", ""));
         repository.save(mapper.mapLogDtoToLog(dto));
     }
 
@@ -54,12 +53,6 @@ public class LogService {
     public void error(@NotNull LogDto dto){
         dto.setType(LogType.ERROR);
         log.error(dto.getContent());
-        createLog(dto);
-    }
-
-    public void debug(@NotNull LogDto dto){
-        dto.setType(LogType.DEBUG);
-        log.debug(dto.getContent());
         createLog(dto);
     }
 

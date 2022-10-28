@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.web.SecurityFilterChain;
-import queivan.fetcher.security.AudienceValidator;
 
 @EnableWebSecurity
 public class SecurityConfig {
@@ -38,9 +37,9 @@ public class SecurityConfig {
                 .mvcMatchers(HttpMethod.GET, "/paths").hasAuthority("SCOPE_fetcher:path_fetch_admin")
                 .mvcMatchers(HttpMethod.GET, "/paths/*").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/configs").hasAuthority("SCOPE_fetcher:config_fetch_admin")
-                .mvcMatchers(HttpMethod.GET, "/configs/fetch").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/configs/fetch/*").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/configs/*").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/configs/fetch").hasAuthority("SCOPE_fetcher:config_fetch_admin")
+                .mvcMatchers(HttpMethod.GET, "/configs/fetch/*").hasAuthority("SCOPE_fetcher:config_fetch_admin")
+                .mvcMatchers(HttpMethod.GET, "/configs/*").hasAuthority("SCOPE_fetcher:config_fetch_admin")
                 .mvcMatchers(HttpMethod.GET, "/rosters/*").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/replacements/*").hasAuthority("SCOPE_fetcher:config_fetch_admin")
                 .mvcMatchers(HttpMethod.POST, "/rosters").hasAuthority("SCOPE_fetcher:config_fetch_admin")

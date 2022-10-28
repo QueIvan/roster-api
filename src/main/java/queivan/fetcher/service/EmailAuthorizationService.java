@@ -23,13 +23,13 @@ public class EmailAuthorizationService {
     public EmailAuthorizationDto toggleElementAuthorization(UUID targetId, String issuerId) {
         EmailAuthorization authorization = getElement(targetId);
         logger.info(LogDto.builder()
-                .content(String.format("Fetched authorization request with id: %s [issuerId: %s]", authorization.getId(), issuerId))
+                .content(String.format("Fetched authorization request with id: %s", authorization.getId()))
                 .issuerId(issuerId)
                 .build());
         authorization.setStatus(!authorization.getStatus());
         repository.save(authorization);
         logger.info(LogDto.builder()
-                .content(String.format("Toggle authorization status of request with id: %s [issuerId: %s]", authorization.getId(), issuerId))
+                .content(String.format("Toggle authorization status of request with id: %s", authorization.getId()))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapEmailAuthorizationToEmailAuthorizationDto(authorization);

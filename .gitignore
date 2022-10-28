@@ -18,6 +18,7 @@ logs/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+token.json
 
 ### IntelliJ IDEA ###
 .idea

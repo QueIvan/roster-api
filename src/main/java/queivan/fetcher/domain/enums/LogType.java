@@ -7,8 +7,7 @@ import lombok.Getter;
 @Getter
 public enum LogType {
     INFO("info"),
-    ERROR("error"),
-    DEBUG("debug");
+    ERROR("error");
 
     private final String type;
 

@@ -28,7 +28,7 @@ public class ConfigService {
     public ConfigDto getConfigById(UUID id, String issuerId) {
         Config configs = repository.findById(id).orElseThrow(ConfigNotFoundException::new);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching config with id: %s [issuerId: %s]", id, issuerId))
+                .content(String.format("Fetching config with id: %s", id))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapConfigToConfigDto(configs);
@@ -37,7 +37,7 @@ public class ConfigService {
     public List<ConfigDto> getAllConfigs(String issuerId) {
         List<Config> configs = repository.findAll();
         logger.info(LogDto.builder()
-                .content(String.format("Fetching all saved configs [issuerId: %s]", issuerId))
+                .content("Fetching all saved configs")
                 .issuerId(issuerId)
                 .build());
         return mapper.mapConfigListToConfigDtoList(configs);
@@ -47,7 +47,7 @@ public class ConfigService {
         List<UUID> configIds = repository.findAllIdsByStatus(true);
         List<Config> configs = repository.findAllById(configIds);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching all authorized configs [issuerId: %s]", issuerId))
+                .content("Fetching all authorized configs")
                 .issuerId(issuerId)
                 .build());
         return mapper.mapConfigListToConfigDtoList(configs);
@@ -57,7 +57,7 @@ public class ConfigService {
         List<UUID> configIds = repository.findAllIdsByEmail(creatorEmail);
         List<Config> configs = repository.findAllById(configIds);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching all configs, created by %s [issuerId: %s]", creatorEmail, issuerId))
+                .content(String.format("Fetching all configs, created by %s", creatorEmail))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapConfigListToConfigDtoList(configs);
@@ -68,30 +68,27 @@ public class ConfigService {
     //region OPERATIONS
 
     public Boolean fetchConfig(UUID id, String issuerId) throws IOException, InterruptedException {
-        System.out.println(id);
         doesConfigExistById(id, issuerId);
-        Boolean result = fetcher.fetchConfig(id);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching data about config with id: %s from wiki [issuerId: %s]", id, issuerId))
+                .content(String.format("Fetching data about config with id: %s from wiki", id))
                 .issuerId(issuerId)
                 .build());
-        return result;
+        return fetcher.fetchConfig(id);
     }
 
     public Boolean fetchAllConfigs(String issuerId) throws IOException, InterruptedException {
-        Boolean result = fetcher.fetchAllConfigs();
         logger.info(LogDto.builder()
-                .content(String.format("Fetching data about all configs from wiki [issuerId: %s]", issuerId))
+                .content("Fetching data about all configs from wiki")
                 .issuerId(issuerId)
                 .build());
-        return result;
+        return fetcher.fetchAllConfigs();
     }
 
     public ConfigDto createConfig(ConfigDto dto, String issuerId) {
         doesConfigNotExist(dto, issuerId);
         Config config = repository.save(mapper.mapConfigDtoToConfig(dto));
         logger.info(LogDto.builder()
-                .content(String.format("Created new config with id: %s [issuerId: %s]", config.getId(), issuerId))
+                .content(String.format("Created new config with id: %s", config.getId()))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapConfigToConfigDto(config);
@@ -101,7 +98,7 @@ public class ConfigService {
         doesConfigExistById(dto.getId(), issuerId);
         Config config = repository.save(mapper.mapConfigDtoToConfig(dto));
         logger.info(LogDto.builder()
-                .content(String.format("Updated config with id: %s [issuerId: %s]", config.getId(), issuerId))
+                .content(String.format("Updated config with id: %s", config.getId()))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapConfigToConfigDto(config);
@@ -111,7 +108,7 @@ public class ConfigService {
         doesConfigExistById(id, issuerId);
         repository.deleteById(id);
         logger.info(LogDto.builder()
-                .content(String.format("Deleted config with id: %s [issuerId: %s]", id, issuerId))
+                .content(String.format("Deleted config with id: %s", id))
                 .issuerId(issuerId)
                 .build());
     }
@@ -123,7 +120,7 @@ public class ConfigService {
     private void doesConfigExistById(UUID id, String issuerId){
         if(!repository.existsById(id)) {
             logger.error(LogDto.builder()
-                    .content(String.format("Config with id: %s does not exist [issuerId: %s]", id, issuerId))
+                    .content(String.format("Config with id: %s does not exist", id))
                     .issuerId(issuerId)
                     .build());
             throw new ConfigNotFoundException();
@@ -133,7 +130,7 @@ public class ConfigService {
     private void doesConfigNotExistByName(String name, String issuerId){
         if(repository.existsByName(name)) {
             logger.error(LogDto.builder()
-                    .content(String.format("Config with name: %s already exist [issuerId: %s]", name, issuerId))
+                    .content(String.format("Config with name: %s already exist", name))
                     .issuerId(issuerId)
                     .build());
             throw new ConfigFoundException();
@@ -143,7 +140,7 @@ public class ConfigService {
     private void doesConfigNotExistByPath(String path, String issuerId){
         if(repository.existsByPath(path)) {
             logger.error(LogDto.builder()
-                    .content(String.format("Config with path: %s already exist [issuerId: %s]", path, issuerId))
+                    .content(String.format("Config with path: %s already exist", path))
                     .issuerId(issuerId)
                     .build());
             throw new ConfigFoundException();

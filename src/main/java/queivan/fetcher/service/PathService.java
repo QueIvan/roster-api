@@ -23,7 +23,7 @@ public class PathService {
     public PathDto getPathById(UUID id, String issuerId) {
         Path paths = repository.findById(id).orElseThrow(PathNotFoundException::new);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching path with id: %s [issuerId: %s]", id, issuerId))
+                .content(String.format("Fetching path with id: %s", id))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapPathToPathDto(paths);
@@ -32,7 +32,7 @@ public class PathService {
     public List<PathDto> getAllPaths(String issuerId) {
         List<Path> paths = repository.findAll();
         logger.info(LogDto.builder()
-                .content(String.format("Fetching all saved paths [issuerId: %s]", issuerId))
+                .content("Fetching all saved paths")
                 .issuerId(issuerId)
                 .build());
         return mapper.mapPathListToPathDtoList(paths);
@@ -42,7 +42,7 @@ public class PathService {
         List<UUID> pathIds = repository.findAllIdsByStatus(true);
         List<Path> paths = repository.findAllById(pathIds);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching all authorized paths [issuerId: %s]", issuerId))
+                .content("Fetching all authorized paths")
                 .issuerId(issuerId)
                 .build());
         return mapper.mapPathListToPathDtoList(paths);
@@ -52,7 +52,7 @@ public class PathService {
         List<UUID> pathIds = repository.findAllIdsByEmail(creatorEmail);
         List<Path> paths = repository.findAllById(pathIds);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching all paths, created by %s [issuerId: %s]", creatorEmail, issuerId))
+                .content(String.format("Fetching all paths, created by %s", creatorEmail))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapPathListToPathDtoList(paths);
@@ -61,7 +61,7 @@ public class PathService {
     public List<PathDto> getAllMatchingPaths(String searchQuery, String issuerId){
         List<Path> paths = repository.findAllByTitleContainingAndAbbreviationContaining(searchQuery);
         logger.info(LogDto.builder()
-                .content(String.format("Fetching all paths matching search query: %s [issuerId: %s]", searchQuery, issuerId))
+                .content(String.format("Fetching all paths matching search query: %s", searchQuery))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapPathListToPathDtoList(paths);
@@ -75,7 +75,7 @@ public class PathService {
         doesPathExist(dto.getTitle(), issuerId);
         Path path = repository.save(mapper.mapPathDtoToPath(dto));
         logger.info(LogDto.builder()
-                .content(String.format("Created new path with id: %s [issuerId: %s]", path.getId(), issuerId))
+                .content(String.format("Created new path with id: %s", path.getId()))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapPathToPathDto(path);
@@ -85,7 +85,7 @@ public class PathService {
         doesPathExistById(dto.getId(), issuerId);
         Path path = repository.save(mapper.mapPathDtoToPath(dto));
         logger.info(LogDto.builder()
-                .content(String.format("Updated path with id: %s [issuerId: %s]", path.getId(), issuerId))
+                .content(String.format("Updated path with id: %s", path.getId()))
                 .issuerId(issuerId)
                 .build());
         return mapper.mapPathToPathDto(path);
@@ -95,7 +95,7 @@ public class PathService {
         doesPathExistById(id, issuerId);
         repository.deleteById(id);
         logger.info(LogDto.builder()
-                .content(String.format("Deleted path with id: %s [issuerId: %s]", id, issuerId))
+                .content(String.format("Deleted path with id: %s", id))
                 .issuerId(issuerId)
                 .build());
     }
@@ -107,7 +107,7 @@ public class PathService {
     private void doesPathExistById(UUID id, String issuerId){
         if(!repository.existsById(id)) {
             logger.error(LogDto.builder()
-                    .content(String.format("Path with id: %s does not exist [issuerId: %s]", id, issuerId))
+                    .content(String.format("Path with id: %s does not exist", id))
                 .issuerId(issuerId)
                     .build());
             throw new ConfigNotFoundException();
@@ -117,7 +117,7 @@ public class PathService {
     private void doesPathExist(String title, String issuerId) {
         if(repository.existsByTitle(title)){
             logger.error(LogDto.builder()
-                    .content(String.format("Path with title: %s already exist [issuerId: %s]", title, issuerId))
+                    .content(String.format("Path with title: %s already exist", title))
                 .issuerId(issuerId)
                     .build());
             throw new ConfigNotFoundException();

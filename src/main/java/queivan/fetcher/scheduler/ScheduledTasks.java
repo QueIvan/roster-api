@@ -20,7 +20,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 0 */12 * * *")
     public void fetchAllConfigs() throws IOException, InterruptedException {
         logger.info(LogDto.builder()
-                .content("Fetching all active configs [issuerId: SYSTEM]")
+                .content("Fetching all active configs")
                 .issuerId("SYSTEM")
                 .build());
         fetcher.fetchAllConfigs();

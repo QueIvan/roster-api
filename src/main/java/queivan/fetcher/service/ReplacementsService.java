@@ -16,7 +16,7 @@ public class ReplacementsService {
     public Replacements getReplacementsForSearchTitle(String searchQuery, String issuerId){
         Replacements replacement = repository.findByName(searchQuery);
         logger.info(LogDto.builder()
-                .content(String.format("Fetch replacement for query: %s [issuerId: %s]", searchQuery, issuerId))
+                .content(String.format("Fetch replacement for query: %s", searchQuery))
                 .issuerId(issuerId)
                 .build());
         return replacement;

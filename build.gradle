@@ -5,12 +5,11 @@ plugins {
 }
 
 group = 'queivan'
-version = '0.2.5'
-sourceCompatibility = '17'
+version = '0.5.2'
 
 bootJar {
     baseName = "NoPixelFetcherAPI"
-    version =  '0.2.5'
+    version =  '0.6'
 }
 
 configurations {
@@ -29,7 +28,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
     implementation 'org.jetbrains:annotations:23.0.0'
-    compileOnly 'io.socket:engine.io-client:2.1.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
