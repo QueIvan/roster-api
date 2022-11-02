@@ -28,7 +28,7 @@ public class ConfigController {
         return facade.fetchAllConfigs(issuerId);
     }
 
-    @GetMapping(value = "/fetch/{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/fetch", produces = APPLICATION_JSON_VALUE)
     public Boolean fetchConfig(@PathVariable("id") UUID id, @RequestHeader("X-IssuerId") String issuerId) throws IOException, InterruptedException {
         return facade.fetchConfig(id, issuerId);
     }

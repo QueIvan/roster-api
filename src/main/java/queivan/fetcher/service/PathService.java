@@ -59,7 +59,7 @@ public class PathService {
     }
 
     public List<PathDto> getAllMatchingPaths(String searchQuery, String issuerId){
-        List<Path> paths = repository.findAllByTitleContainingAndAbbreviationContaining(searchQuery);
+        List<Path> paths = repository.findAllMatching(searchQuery);
         logger.info(LogDto.builder()
                 .content(String.format("Fetching all paths matching search query: %s", searchQuery))
                 .issuerId(issuerId)

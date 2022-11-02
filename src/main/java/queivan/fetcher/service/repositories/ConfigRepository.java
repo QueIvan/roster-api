@@ -15,5 +15,5 @@ public interface ConfigRepository extends JpaRepository<Config, UUID> {
     @Query(value = "SELECT cast(configs.id as varchar) as id FROM configs, email_authorizations WHERE email_authorizations.status = ?1", nativeQuery = true)
     List<UUID> findAllIdsByStatus(Boolean status);
     boolean existsByName(String name);
-    boolean existsByPath(String path);
+    boolean existsByWikiPath(String path);
 }

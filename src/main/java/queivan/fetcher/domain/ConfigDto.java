@@ -13,10 +13,11 @@ import java.util.UUID;
 public class ConfigDto {
     private UUID id;
     private String name;
-    private String path;
+    private String wikiPath;
+    private String rosterPath;
     private Set<String> ignoredHeaders;
-    private Boolean split;
-    private String splitHeader;
+    private String splitPath;
+    private Set<String> splitHeaders;
     private OptionsConfigDto options;
     private List<CorrectionsConfigDto> corrections;
     private EmailAuthorizationDto authorized;

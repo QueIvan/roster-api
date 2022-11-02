@@ -138,7 +138,7 @@ public class ConfigService {
     }
 
     private void doesConfigNotExistByPath(String path, String issuerId){
-        if(repository.existsByPath(path)) {
+        if(repository.existsByWikiPath(path)) {
             logger.error(LogDto.builder()
                     .content(String.format("Config with path: %s already exist", path))
                     .issuerId(issuerId)
@@ -149,7 +149,7 @@ public class ConfigService {
 
     private void doesConfigNotExist(@NotNull ConfigDto dto, String issuerId){
         doesConfigNotExistByName(dto.getName(), issuerId);
-        doesConfigNotExistByPath(dto.getPath(), issuerId);
+        doesConfigNotExistByPath(dto.getWikiPath(), issuerId);
     }
 
     //endregion

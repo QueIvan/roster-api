@@ -53,7 +53,6 @@ public class FetcherService {
         env.put("TOKEN_AUDIENCE", tokenAudience);
         env.put("TOKEN_LOCATION", tokenLocation);
         env.put("API_URL", apiUrl);
-        p.redirectErrorStream(true);
     }
 
     public boolean fetchConfig(UUID id) throws IOException, InterruptedException {

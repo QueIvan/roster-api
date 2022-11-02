@@ -2,8 +2,8 @@ package queivan.fetcher.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import queivan.fetcher.domain.RostersDto;
-import queivan.fetcher.facade.RostersFacade;
+import queivan.fetcher.domain.RosterDto;
+import queivan.fetcher.facade.RosterFacade;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -11,16 +11,16 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/rosters")
 @RequiredArgsConstructor
-public class RostersController {
-    private final RostersFacade facade;
+public class RosterController {
+    private final RosterFacade facade;
 
     @GetMapping(value = "/{name}", produces = APPLICATION_JSON_VALUE)
-    public RostersDto getRosterByName(@PathVariable("name") String name, @RequestHeader("X-IssuerId") String issuerId) {
+    public RosterDto getRosterByName(@PathVariable("name") String name, @RequestHeader("X-IssuerId") String issuerId) {
         return facade.getRosterByName(name, issuerId);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public RostersDto createNewRoster(@RequestBody RostersDto dto, @RequestHeader("X-IssuerId") String issuerId) {
+    public RosterDto createNewRoster(@RequestBody RosterDto dto, @RequestHeader("X-IssuerId") String issuerId) {
         return facade.createNewRoster(dto, issuerId);
     }
 }

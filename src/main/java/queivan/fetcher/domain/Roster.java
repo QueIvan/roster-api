@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity(name = "rosters")
@@ -17,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Getter
-public class Rosters {
+public class Roster {
     @Id
     @GeneratedValue
     private UUID id;

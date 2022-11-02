@@ -23,17 +23,19 @@ public class Config {
     @NotNull
     private String name;
     @NotNull
-    private String path;
+    private String wikiPath;
+    private String rosterPath;
     @ElementCollection
     private Set<String> ignoredHeaders;
-    private Boolean split;
-    private String splitHeader;
+    private String splitPath;
+    @ElementCollection
+    private Set<String> splitHeaders;
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Options options;
-    @OneToMany(mappedBy = "config", cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Corrections> corrections;
-    @ManyToMany(mappedBy = "configs", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "configs", cascade = CascadeType.ALL)
     private List<Path> paths;
     @OneToOne(cascade = CascadeType.ALL)
     private EmailAuthorization authorized;
