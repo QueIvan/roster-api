@@ -13,4 +13,5 @@ public class CorrectionsConfigDto {
     private String target;
     private String category;
     private String value;
+    private String before;
 }

@@ -9,7 +9,7 @@ version = '0.5.2'
 
 bootJar {
     baseName = "NoPixelFetcherAPI"
-    version =  '0.8.2'
+    version =  '0.8.5'
 }
 
 configurations {

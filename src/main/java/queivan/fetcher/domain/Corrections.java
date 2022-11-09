@@ -23,6 +23,7 @@ public class Corrections {
     private String category;
     @NotNull
     private String value;
+    private String before;
     @ManyToOne(cascade = CascadeType.ALL)
     private Config config;
 }
