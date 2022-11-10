@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@CrossOrigin(origins = {"https://roster.queivan.com", "https://192.168.1.231:3000"})
+@CrossOrigin(origins = {"https://roster.queivan.com", "https://192.168.1.231:3000", "https://172.20.10.4:3000"})
 @RestController
 @RequestMapping("/configs")
 @RequiredArgsConstructor
